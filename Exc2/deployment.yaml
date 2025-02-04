@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scaletestapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scaletestapp-hpa-test
+  template:
+    metadata:
+      labels:
+        app: scaletestapp-hpa-test
+    spec:
+      containers:
+        - name: hpa-test
+          image: shestera/scaletestapp:latest
+          resources:
+            requests:
+              memory: "10Mi"
+            limits:
+              memory: "30Mi"
+          ports:
+            - containerPort: 8080
